@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Die Erweiterte Wörtersortiermaschine</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #FFE4B5 0%, #F0E68C 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .machine-body {
+            padding: 40px;
+            background: #f8f9fa;
+        }
+
+        .word-input-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .word-input {
+            font-size: 24px;
+            padding: 15px;
+            border: 3px solid #4ECDC4;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .start-btn {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 10px;
+        }
+
+        .start-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .question-section {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .question-box {
+            background: white;
+            border: 4px solid #4ECDC4;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .current-word {
+            font-size: 32px;
+            color: #FF6B6B;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .answer-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .answer-btn {
+            font-size: 20px;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .yes-btn {
+            background: #2ECC71;
+            color: white;
+        }
+
+        .no-btn {
+            background: #E74C3C;
+            color: white;
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            background: #ecf0f1;
+            height: 10px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(45deg, #4ECDC4, #44A08D);
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        .result-section {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .result-word {
+            font-size: 36px;
+            color: #FF6B6B;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .result-category {
+            font-size: 28px;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nomen { background: #E74C3C; }
+        .verb { background: #3498DB; }
+        .adjektiv { background: #2ECC71; }
+        .pronomen { background: #9B59B6; }
+        .präposition { background: #E67E22; }
+        .konjunktion { background: #34495E; }
+        .adverb { background: #F39C12; }
+        .artikel { background: #1ABC9C; }
+
+        .feedback {
+            font-size: 18px;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .feedback.correct {
+            background: #D5EDDA;
+            color: #155724;
+            border: 2px solid #C3E6CB;
+        }
+
+        .feedback.incorrect {
+            background: #F8D7DA;
+            color: #721C24;
+            border: 2px solid #F5C6CB;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px 10px;
+        }
+
+        .path-display {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f1f3f4;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .instruction {
+            background: #E8F4FD;
+            border-left: 5px solid #4ECDC4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .word-list-helper {
+            background: #E8F4FD;
+            border: 2px solid #4ECDC4;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .word-list-helper h4 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 18px;
+        }
+
+        .word-list-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 8px;
+        }
+
+        .word-list-item {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            color: #4ECDC4;
+            border: 1px solid #4ECDC4;
+        }
+
+        .highlight {
+            background: #FFEB3B;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Die Erweiterte Wörtersortiermaschine</h1>
+            <p>Finde heraus, welche Wortart dein Wort ist - mit detaillierter Partikel-Unterscheidung!</p>
+        </div>
+
+        <div class="machine-body">
+            <div class="instruction">
+                <strong>Neu in dieser Version:</strong> Die Maschine unterscheidet jetzt zwischen verschiedenen Partikel-Arten wie Präpositionen, Konjunktionen, Adverbien und Artikeln!
+            </div>
+
+            <div class="word-input-section" id="inputSection">
+                <h2>Welches Wort möchtest du sortieren?</h2>
+                <input type="text" id="wordInput" class="word-input" placeholder="z.B. Hund, rennen, schön, aber, in...">
+                <br>
+                <button class="start-btn" onclick="startSorting()">🚀 Sortierung starten!</button>
+            </div>
+
+            <div class="question-section" id="questionSection">
+                <div class="current-word" id="currentWord"></div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="question-box">
+                    <div class="question-text" id="questionText"></div>
+                    <div id="wordListHelper" class="word-list-helper" style="display: none;"></div>
+                    <div class="answer-buttons">
+                        <button class="answer-btn yes-btn" onclick="answerQuestion(true)">✅ JA</button>
+                        <button class="answer-btn no-btn" onclick="answerQuestion(false)">❌ NEIN</button>
+                    </div>
+                </div>
+                <div class="path-display" id="pathDisplay"></div>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <div class="result-word" id="resultWord"></div>
+                <div class="result-category" id="resultCategory"></div>
+                <div id="feedbackContainer"></div>
+                <button class="restart-btn" onclick="restartMachine()">🔄 Neues Wort</button>
+                <button class="restart-btn" onclick="showSolution()">💡 Lösung anzeigen</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Erweiterter Fragenbaum mit Partikel-Unterscheidung
+        const questionTree = {
+            start: {
+                question: "Steht immer ein Artikel vor dem Wort?",
+                yes: "article_check",
+                no: "verb_check"
+            },
+            article_check: {
+                question: "Kommt das Wort in der Mehrzahl vor im Sprachbuch?",
+                yes: "nomen",
+                no: "verb_check"
+            },
+            verb_check: {
+                question: "Kannst du das Wort sagen: ich, du, er/sie/es...?",
+                yes: "tense_check",
+                no: "adjective_check"
+            },
+            tense_check: {
+                question: "Kannst du mit dem Wort folgende Reihe bilden: ...sagen - sagte - gesagt, ...trinken - trank - getrunken?",
+                yes: "verb",
+                no: "adjective_check"
+            },
+            adjective_check: {
+                question: "Kannst du das Wort in die Lücke setzen: Der ... Turm?",
+                yes: "comparison_check",
+                no: "pronoun_check"
+            },
+            comparison_check: {
+                question: "Kannst du mit dem Wort folgende Reihe bilden: groß - größer - am größten?",
+                yes: "adjektiv",
+                no: "adjektiv"
+            },
+            pronoun_check: {
+                question: "Ist das Wort in der Pronomenliste?",
+                yes: "pronomen",
+                no: "article_particle_check",
+                showList: "pronomen"
+            },
+            article_particle_check: {
+                question: "Ist das Wort ein Artikel (der, die, das, ein, eine)?",
+                yes: "artikel",
+                no: "preposition_check",
+                showList: "artikel"
+            },
+            preposition_check: {
+                question: "Kannst du das Wort in die Lücke setzen: Das Buch liegt ... dem Tisch?",
+                yes: "präposition",
+                no: "conjunction_check"
+            },
+            conjunction_check: {
+                question: "Kannst du das Wort in die Lücke setzen: Ich gehe ins Kino ... du kommst mit?",
+                yes: "konjunktion",
+                no: "adverb"
+            }
+        };
+
+        // Listen für Hilfeanzeigen
+        const pronounList = [
+            // Personalpronomen
+            "ich", "du", "er", "sie", "es", "wir", "ihr", "sie",
+            "mich", "dich", "sich", "uns", "euch",
+            "mir", "dir", "ihm", "ihr", "ihnen",
+            // Possessivpronomen
+            "mein", "dein", "sein", "ihr", "unser", "euer",
+            "meine", "deine", "seine", "ihre", "unsere", "eure",
+            // Demonstrativpronomen
+            "dieser", "diese", "dieses", "jener", "jene", "jenes",
+            // Interrogativpronomen
+            "wer", "was", "welcher", "welche", "welches",
+            "wo", "wie", "wann", "warum", "wohin", "woher"
+        ];
+
+        const articleList = [
+            "der", "die", "das", "den", "dem", "des",
+            "ein", "eine", "einen", "einem", "einer", "eines"
+        ];
+
+        // Erweiterte Wortdatenbank mit spezifischen Partikel-Arten
+        const correctAnswers = {
+            // Nomen
+            "hund": {category: "nomen", path: ["ja", "ja"]},
+            "katze": {category: "nomen", path: ["ja", "ja"]},
+            "haus": {category: "nomen", path: ["ja", "ja"]},
+            "baum": {category: "nomen", path: ["ja", "ja"]},
+            "auto": {category: "nomen", path: ["ja", "ja"]},
+            "tisch": {category: "nomen", path: ["ja", "ja"]},
+            "kind": {category: "nomen", path: ["ja", "ja"]},
+            "schule": {category: "nomen", path: ["ja", "ja"]},
+            "buch": {category: "nomen", path: ["ja", "ja"]},
+            "ball": {category: "nomen", path: ["ja", "ja"]},
+            
+            // Verben
+            "laufen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "rennen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "essen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "schlafen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "spielen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "lesen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "trinken": {category: "verb", path: ["nein", "ja", "ja"]},
+            "gehen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "kommen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "sehen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "machen": {category: "verb", path: ["nein", "ja", "ja"]},
+            "haben": {category: "verb", path: ["nein", "ja", "ja"]},
+            
+            // Adjektive
+            "schön": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "groß": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "klein": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "rot": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "schnell": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "langsam": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "alt": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "neu": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "heiß": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            "kalt": {category: "adjektiv", path: ["nein", "nein", "ja", "ja"]},
+            
+            // Pronomen
+            "ich": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "du": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "er": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "sie": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "es": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "wir": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "ihr": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "wer": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "was": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "wo": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "wie": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "wann": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "mein": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "dein": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            "dieser": {category: "pronomen", path: ["nein", "nein", "nein", "ja"]},
+            
+            // Artikel
+            "der": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            "die": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            "das": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            "ein": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            "eine": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            "einen": {category: "artikel", path: ["nein", "nein", "nein", "nein", "ja"]},
+            
+            // Präpositionen
+            "in": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "auf": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "unter": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "über": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "neben": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "hinter": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "vor": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "zwischen": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "mit": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "ohne": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "für": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            "gegen": {category: "präposition", path: ["nein", "nein", "nein", "nein", "nein", "ja"]},
+            
+            // Konjunktionen
+            "und": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "oder": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "aber": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "denn": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "weil": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "dass": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "wenn": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            "als": {category: "konjunktion", path: ["nein", "nein", "nein", "nein", "nein", "nein", "ja"]},
+            
+            // Adverbien
+            "hier": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "dort": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "heute": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "gestern": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "morgen": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "immer": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "nie": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "oft": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "sehr": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]},
+            "ziemlich": {category: "adverb", path: ["nein", "nein", "nein", "nein", "nein", "nein", "nein"]}
+        };
+
+        let currentWord = "";
+        let currentStep = "start";
+        let userAnswers = [];
+        let questionCount = 0;
+        let totalQuestions = 0;
+
+        const categoryInfo = {
+            nomen: {name: "Nomen (Substantiv)", description: "Ein Nomen ist ein Hauptwort. Es bezeichnet Personen, Tiere, Dinge oder Begriffe."},
+            verb: {name: "Verb (Zeitwort)", description: "Ein Verb ist ein Tätigkeitswort. Es drückt aus, was jemand tut oder was geschieht."},
+            adjektiv: {name: "Adjektiv (Eigenschaftswort)", description: "Ein Adjektiv ist ein Eigenschaftswort. Es beschreibt, wie etwas ist."},
+            pronomen: {name: "Pronomen (Fürwort)", description: "Ein Pronomen ist ein Fürwort. Es steht für ein Nomen oder fragt nach ihm."},
+            artikel: {name: "Artikel (Begleiter)", description: "Ein Artikel ist ein Begleiter. Er steht vor einem Nomen (der, die, das, ein, eine)."},
+            präposition: {name: "Präposition (Verhältniswort)", description: "Eine Präposition ist ein Verhältniswort. Sie gibt ein Verhältnis zwischen Wörtern an."},
+            konjunktion: {name: "Konjunktion (Bindewort)", description: "Eine Konjunktion ist ein Bindewort. Sie verbindet Wörter oder Sätze."},
+            adverb: {name: "Adverb (Umstandswort)", description: "Ein Adverb ist ein Umstandswort. Es gibt nähere Umstände an (Zeit, Ort, Art)."}
+        };
+
+        function startSorting() {
+            const input = document.getElementById('wordInput').value.trim().toLowerCase();
+            if (!input) {
+                alert('Bitte gib ein Wort ein!');
+                return;
+            }
+
+            currentWord = input;
+            currentStep = "start";
+            userAnswers = [];
+            questionCount = 0;
+            
+            // Berechne die erwartete Anzahl von Fragen
+            if (correctAnswers[currentWord]) {
+                totalQuestions = correctAnswers[currentWord].path.length;
+            } else {
+                totalQuestions = 7; // Maximalwert für längsten Pfad
+            }
+
+            document.getElementById('inputSection').style.display = 'none';
+            document.getElementById('questionSection').style.display = 'block';
+            document.getElementById('currentWord').textContent = currentWord.toUpperCase();
+            
+            showCurrentQuestion();
+        }
+
+        function showCurrentQuestion() {
+            const question = questionTree[currentStep];
+            document.getElementById('questionText').textContent = question.question;
+            
+            // Prüfen ob eine Wortliste angezeigt werden soll
+            const wordListHelper = document.getElementById('wordListHelper');
+            if (question.showList === "pronomen") {
+                wordListHelper.style.display = 'block';
+                wordListHelper.innerHTML = `
+                    <h4>📝 Pronomenliste:</h4>
+                    <div class="word-list-grid">
+                        ${pronounList.map(word => `<div class="word-list-item">${word}</div>`).join('')}
+                    </div>
+                `;
+            } else if (question.showList === "artikel") {
+                wordListHelper.style.display = 'block';
+                wordListHelper.innerHTML = `
+                    <h4>📝 Artikelliste:</h4>
+                    <div class="word-list-grid">
+                        ${articleList.map(word => `<div class="word-list-item">${word}</div>`).join('')}
+                    </div>
+                `;
+            } else {
+                wordListHelper.style.display = 'none';
+            }
+            
+            // Fortschritt aktualisieren
+            const progress = (questionCount / totalQuestions) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // Pfad anzeigen
+            updatePathDisplay();
+        }
+
+        function updatePathDisplay() {
+            const pathText = userAnswers.length > 0 ? 
+                "Dein Weg: " + userAnswers.map(a => a ? "JA" : "NEIN").join(" → ") : 
+                "Beginn der Sortierung";
+            document.getElementById('pathDisplay').textContent = pathText;
+        }
+
+        function answerQuestion(answer) {
+            userAnswers.push(answer);
+            questionCount++;
+            
+            const currentQuestion = questionTree[currentStep];
+            const nextStep = answer ? currentQuestion.yes : currentQuestion.no;
+            
+            // Prüfen ob wir ein Endergebnis erreicht haben
+            if (!questionTree[nextStep]) {
+                showResult(nextStep);
+            } else {
+                currentStep = nextStep;
+                showCurrentQuestion();
+            }
+        }
+
+        function showResult(category) {
+            document.getElementById('questionSection').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+            
+            document.getElementById('resultWord').textContent = currentWord.toUpperCase();
+            
+            // Prüfe ob das Wort bekannt ist und ob die ermittelte Kategorie stimmt
+            let actualCategory = category;
+            let isWordKnown = correctAnswers[currentWord];
+            let isResultCorrect = true;
+            
+            if (isWordKnown) {
+                const correctCategory = correctAnswers[currentWord].category;
+                if (category !== correctCategory) {
+                    // Falsche Kategorie ermittelt - zeige die richtige an
+                    actualCategory = correctCategory;
+                    isResultCorrect = false;
+                }
+            }
+            
+            const categoryEl = document.getElementById('resultCategory');
+            categoryEl.textContent = categoryInfo[actualCategory].name;
+            categoryEl.className = `result-category ${actualCategory}`;
+            
+            // Feedback basierend auf Korrektheit
+            const feedbackContainer = document.getElementById('feedbackContainer');
+            let feedbackHTML = `<p>${categoryInfo[actualCategory].description}</p>`;
+            
+            if (isWordKnown) {
+                const correct = correctAnswers[currentWord];
+                const userPath = userAnswers.map(a => a ? "ja" : "nein");
+                
+                if (isResultCorrect) {
+                    feedbackHTML += `<div class="feedback correct">
+                        🎉 Perfekt! Du hast die richtige Wortart gefunden!<br>
+                        📍 Dein Weg: ${userPath.join(" → ")}<br>
+                        ✅ Das Wort "${currentWord}" ist tatsächlich ein <strong>${categoryInfo[actualCategory].name}</strong>
+                    </div>`;
+                } else {
+                    feedbackHTML += `<div class="feedback incorrect">
+                        ❌ Leider falsch! Durch deine Antworten wurde "${currentWord}" als <strong>${categoryInfo[category].name}</strong> eingeordnet.<br><br>
+                        ✅ <strong>Richtig ist:</strong> "${currentWord}" ist ein <strong>${categoryInfo[correct.category].name}</strong><br>
+                        🤔 Dein Weg: ${userPath.join(" → ")}<br>
+                        💡 Ein möglicher korrekter Weg: ${correct.path.join(" → ")}<br><br>
+                        <strong>Tipp:</strong> ${getHintForWord(currentWord)}
+                    </div>`;
+                }
+            } else {
+                feedbackHTML += `<div class="feedback">
+                    ℹ️ Dein Weg: ${userAnswers.map(a => a ? "JA" : "NEIN").join(" → ")}<br>
+                    Ergebnis: <strong>${categoryInfo[category].name}</strong><br>
+                    Für dieses Wort ist keine Musterlösung hinterlegt. Überprüfe dein Ergebnis mit deinem Lehrer oder Lehrbuch!
+                </div>`;
+            }
+            
+            feedbackContainer.innerHTML = feedbackHTML;
+        }
+        
+        function getHintForWord(word) {
+            const hints = {
+                "rennen": "Kannst du sagen 'ich renne, du rennst, er rennt'? Das ist ein Verb!",
+                "laufen": "Kannst du sagen 'ich laufe, du läufst, er läuft'? Das ist ein Verb!",
+                "schön": "Kannst du sagen 'der schöne Turm'? Und 'schön - schöner - am schönsten'? Das ist ein Adjektiv!",
+                "in": "Kannst du sagen 'Das Buch liegt in dem Tisch'? Das ist eine Präposition!",
+                "und": "Verbindet es zwei Wörter oder Sätze? Das ist eine Konjunktion!"
+            };
+            return hints[word] || "Denke nochmal über die Eigenschaften des Wortes nach.";
+        }
+
+        function showSolution() {
+            if (correctAnswers[currentWord]) {
+                const correct = correctAnswers[currentWord];
+                alert(`Lösung für "${currentWord}":\n\n` +
+                     `Wortart: ${categoryInfo[correct.category].name}\n` +
+                     `Korrekte Antworten: ${correct.path.join(" → ")}\n\n` +
+                     `${categoryInfo[correct.category].description}`);
+            } else {
+                alert('Für dieses Wort ist keine Musterlösung hinterlegt.');
+            }
+        }
+
+        function restartMachine() {
+            document.getElementById('inputSection').style.display = 'block';
+            document.getElementById('questionSection').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'none';
+            document.getElementById('wordInput').value = '';
+            document.getElementById('progressFill').style.width = '0%';
+        }
+
+        // Enter-Taste im Input-Feld
+        document.getElementById('wordInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startSorting();
+            }
+        });
+    </script>
+</body>
+</html>
