@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wörtersortiermaschinen - Übersicht</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+            margin: 20px;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="30" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="70" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="70" cy="60" r="2.5" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="80" r="1.5" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 3em;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            margin: 15px 0 0 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-content {
+            padding: 50px 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #333;
+        }
+
+        .intro h2 {
+            color: #FF6B6B;
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+
+        .intro p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .machines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .machine-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .machine-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+        }
+
+        .machine-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            border-color: #4ECDC4;
+        }
+
+        .machine-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .machine-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .machine-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .machine-features {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .machine-features ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .machine-features li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .machine-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #2ECC71;
+            font-weight: bold;
+        }
+
+        .machine-button {
+            background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .machine-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            text-decoration: none;
+            color: white;
+        }
+
+        .machine-button.advanced {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .machine-button.advanced:hover {
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 30px 40px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .wortarten-list {
+            background: #E8F4FD;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 5px solid #4ECDC4;
+        }
+
+        .wortarten-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .wortart-tag {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #4ECDC4;
+            border: 2px solid #4ECDC4;
+        }
+
+        @media (max-width: 600px) {
+            .machines-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔧 Wörtersortiermaschinen</h1>
+            <p>Lerne Wortarten spielerisch zu bestimmen!</p>
+        </div>
+
+        <div class="main-content">
+            <div class="intro">
+                <h2>Willkommen bei den Wörtersortiermaschinen!</h2>
+                <p>Diese interaktiven Tools helfen dir dabei, deutsche Wortarten durch gezielte Ja/Nein-Fragen zu bestimmen. Wähle die passende Version für dein Lernziel:</p>
+            </div>
+
+            <div class="wortarten-list">
+                <h3>📚 Was lernst du hier?</h3>
+                <p>Die Maschinen erkennen folgende Wortarten:</p>
+                <div class="wortarten-grid">
+                    <div class="wortart-tag">Nomen</div>
+                    <div class="wortart-tag">Verben</div>
+                    <div class="wortart-tag">Adjektive</div>
+                    <div class="wortart-tag">Pronomen</div>
+                    <div class="wortart-tag">Artikel</div>
+                    <div class="wortart-tag">Präpositionen</div>
+                    <div class="wortart-tag">Konjunktionen</div>
+                    <div class="wortart-tag">Adverbien</div>
+                </div>
+            </div>
+
+            <div class="machines-grid">
+                <div class="machine-card">
+                    <span class="machine-icon">🔧</span>
+                    <div class="machine-title">Einfache Wörtersortiermaschine</div>
+                    <div class="machine-description">
+                        Perfekt für den Einstieg! Diese Version unterscheidet zwischen den Grundwortarten und fasst kleinere Wörter als "Partikel" zusammen.
+                    </div>
+                    <div class="machine-features">
+                        <strong>Features:</strong>
+                        <ul>
+                            <li>5 Hauptkategorien</li>
+                            <li>Einfacher Fragenbaum</li>
+                            <li>Pronomenliste als Hilfe</li>
+                            <li>Sofortiges Feedback</li>
+                            <li>Ideal für Anfänger</li>
+                        </ul>
+                    </div>
+                    <a href="einfach.html" class="machine-button">🚀 Starten</a>
+                </div>
+
+                <div class="machine-card">
+                    <span class="machine-icon">⚙️</span>
+                    <div class="machine-title">Erweiterte Wörtersortiermaschine</div>
+                    <div class="machine-description">
+                        Für Fortgeschrittene! Diese Version unterscheidet detailliert zwischen verschiedenen Partikel-Arten und bietet eine präzise Wortarten-Analyse.
+                    </div>
+                    <div class="machine-features">
+                        <strong>Features:</strong>
+                        <ul>
+                            <li>8 spezifische Wortarten</li>
+                            <li>Detaillierte Partikel-Unterscheidung</li>
+                            <li>Erweiterte Fragenketten</li>
+                            <li>Artikel- und Pronomenlisten</li>
+                            <li>Für Fortgeschrittene</li>
+                        </ul>
+                    </div>
+                    <a href="erweitert.html" class="machine-button advanced">🎯 Starten</a>
+                </div>
+            </div>
+
+            <div class="intro">
+                <h3>💡 So funktioniert's:</h3>
+                <p>
+                    1. <strong>Wort eingeben:</strong> Tippe ein deutsches Wort ein<br>
+                    2. <strong>Fragen beantworten:</strong> Beantworte die Ja/Nein-Fragen<br>
+                    3. <strong>Ergebnis erhalten:</strong> Erfahre die Wortart mit Feedback<br>
+                    4. <strong>Lernen:</strong> Bei Fehlern zeigt die Maschine die Lösung
+                </p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎓 Ein interaktives Lernwerkzeug für den Deutschunterricht | Erstellt für spielerisches Grammatik-Lernen</p>
+        </div>
+    </div>
+</body>
+</html>
