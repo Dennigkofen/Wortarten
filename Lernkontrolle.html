@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testlernkontrolle: Passé Composé & Imparfait</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+        }
+
+        .tab.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .tab:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 20px 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            min-height: 700px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-top: none;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .exercise-item {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .exercise-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        .exercise-number {
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .present-form {
+            color: #333;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-field.correct {
+            border-color: #4caf50;
+            background-color: #e8f5e8;
+        }
+
+        .input-field.incorrect {
+            border-color: #f44336;
+            background-color: #ffebee;
+        }
+
+        .text-exercise {
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 25px 0;
+            border: 2px solid #4caf50;
+            line-height: 2;
+        }
+
+        .text-exercise h3 {
+            color: #2e7d32;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .text-exercise p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+
+        .inline-input {
+            display: inline;
+            width: 120px;
+            margin: 0 5px;
+            padding: 5px 10px;
+            font-size: 1rem;
+            vertical-align: baseline;
+        }
+
+        .signalword {
+            background: #fff3e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: #e65100;
+        }
+
+        .sentence-builder {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .sentence-parts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            align-items: center;
+        }
+
+        .sentence-part {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .verb-input {
+            background: #fff3e0;
+            border: 2px solid #ff9800;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            min-width: 120px;
+        }
+
+        .verb-base {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ff9800 0%, #f57400 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .score-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #45a049);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .feedback {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 2px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border: 2px solid #f44336;
+        }
+
+        @media (max-width: 768px) {
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .sentence-parts {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Testlernkontrolle</h1>
+            <p>Passé Composé & Imparfait - Kompletter Test</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('uebung1')">Übung 1: Passé Composé</button>
+            <button class="tab" onclick="showSection('uebung2')">Übung 2: Imparfait</button>
+            <button class="tab" onclick="showSection('uebung3')">Übung 3: Text</button>
+            <button class="tab" onclick="showSection('uebung4')">Übung 4: Satzteile</button>
+        </div>
+
+        <div class="content">
+            <!-- Übung 1: Passé Composé -->
+            <div id="uebung1" class="section active">
+                <h2>Übung 1: Verben ins Passé Composé setzen (15 Punkte)</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                    Setzen Sie die folgenden -er Verben ins Passé Composé:
+                </p>
+                
+                <div class="exercise-grid" id="pc-grid">
+                    <!-- Items will be generated by JavaScript -->
+                </div>
+                
+                <div class="btn-container">
+                    <button class="check-btn" onclick="checkPCExercise()">Alle prüfen</button>
+                    <button class="reset-btn" onclick="resetPCExercise()">Zurücksetzen</button>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress-pc"></div>
+                </div>
+                <div id="pc-feedback"></div>
+            </div>
+
+            <!-- Übung 2: Imparfait -->
+            <div id="uebung2" class="section">
+                <h2>Übung 2: Verben ins Imparfait setzen (15 Punkte)</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                    Setzen Sie die folgenden regelmäßigen Verben ins Imparfait:
+                </p>
+                
+                <div class="exercise-grid" id="imp-grid">
+                    <!-- Items will be generated by JavaScript -->
+                </div>
+                
+                <div class="btn-container">
+                    <button class="check-btn" onclick="checkIMPExercise()">Alle prüfen</button>
+                    <button class="reset-btn" onclick="resetIMPExercise()">Zurücksetzen</button>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress-imp"></div>
+                </div>
+                <div id="imp-feedback"></div>
+            </div>
+
+            <!-- Übung 3: Text -->
+            <div id="uebung3" class="section">
+                <h2>Übung 3: Text vervollständigen (15 Punkte)</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                    Setzen Sie die Verben in die richtige Zeit. Achten Sie auf die Signalwörter!
+                </p>
+                
+                <div class="text-exercise">
+                    <h3>📖 Les aventures de Pierre</h3>
+                    
+                    <p><span class="signalword">L'année dernière</span>, Pierre <input type="text" class="input-field inline-input" id="text1" placeholder="voyager"> en Italie pour ses vacances.</p>
+                    
+                    <p><span class="signalword">Chaque matin</span>, il <input type="text" class="input-field inline-input" id="text2" placeholder="manger"> des croissants frais dans un petit café.</p>
+                    
+                    <p><span class="signalword">Tous les jours</span>, Pierre <input type="text" class="input-field inline-input" id="text3" placeholder="marcher"> dans les rues de Rome et <input type="text" class="input-field inline-input" id="text4" placeholder="regarder"> les monuments.</p>
+                    
+                    <p><span class="signalword">Souvent</span>, il <input type="text" class="input-field inline-input" id="text5" placeholder="rencontrer"> d'autres touristes qui <input type="text" class="input-field inline-input" id="text6" placeholder="parler"> français.</p>
+                    
+                    <p><span class="signalword">Un jour</span>, <span class="signalword">soudain</span>, il <input type="text" class="input-field inline-input" id="text7" placeholder="découvrir"> un petit restaurant secret.</p>
+                    
+                    <p>Le chef <input type="text" class="input-field inline-input" id="text8" placeholder="préparer"> une pizza délicieuse <span class="signalword">pendant que</span> Pierre <input type="text" class="input-field inline-input" id="text9" placeholder="écouter"> de la musique italienne.</p>
+                    
+                    <p><span class="signalword">Ce jour-là</span>, Pierre <input type="text" class="input-field inline-input" id="text10" placeholder="décider"> de rester une semaine de plus.</p>
+                    
+                    <p><span class="signalword">Toujours</span>, il <input type="text" class="input-field inline-input" id="text11" placeholder="téléphoner"> à sa famille le soir pour raconter ses aventures.</p>
+                    
+                    <p><span class="signalword">Finalement</span>, Pierre <input type="text" class="input-field inline-input" id="text12" placeholder="rentrer"> chez lui avec beaucoup de souvenirs.</p>
+                    
+                    <p><span class="signalword">Depuis ce voyage</span>, il <input type="text" class="input-field inline-input" id="text13" placeholder="étudier"> l'italien <span class="signalword">chaque semaine</span>.</p>
+                    
+                    <p><span class="signalword">Hier</span>, il <input type="text" class="input-field inline-input" id="text14" placeholder="acheter"> un livre de cuisine italienne.</p>
+                    
+                    <p><span class="signalword">Maintenant</span>, Pierre <input type="text" class="input-field inline-input" id="text15" placeholder="rêver"> de retourner en Italie l'année prochaine.</p>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="check-btn" onclick="checkTextExercise()">Text prüfen</button>
+                    <button class="reset-btn" onclick="resetTextExercise()">Zurücksetzen</button>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress-text"></div>
+                </div>
+                <div id="text-feedback"></div>
+            </div>
+
+            <!-- Übung 4: Satzteile -->
+            <div id="uebung4" class="section">
+                <h2>Übung 4: Satzteile zusammensetzen (15 Punkte)</h2>
+                <p style="text-align: center; margin-bottom: 30px; color: #666;">
+                    Setzen Sie das Verb in der Klammer in die richtige Zeit und schreiben Sie den kompletten Satz:
+                </p>
+                
+                <div id="sentence-exercises">
+                    <!-- Generated by JavaScript -->
+                </div>
+                
+                <div class="btn-container">
+                    <button class="check-btn" onclick="checkSentenceExercise()">Alle Sätze prüfen</button>
+                    <button class="reset-btn" onclick="resetSentenceExercise()">Zurücksetzen</button>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress" id="progress-sentence"></div>
+                </div>
+                <div id="sentence-feedback"></div>
+            </div>
+        </div>
+        
+        <!-- Gesamtergebnis -->
+        <div class="score-display" id="total-score" style="display: none;">
+            <h3>🎯 Gesamtergebnis</h3>
+            <div id="total-result"></div>
+        </div>
+    </div>
+
+    <script>
+        // Exercise data
+        const pcExercises = [
+            {present: "je mange", answer: "j'ai mangé"},
+            {present: "tu danses", answer: "tu as dansé"},
+            {present: "elle chante", answer: "elle a chanté"},
+            {present: "nous jouons", answer: "nous avons joué"},
+            {present: "vous parlez", answer: "vous avez parlé"},
+            {present: "ils regardent", answer: "ils ont regardé"},
+            {present: "je marche", answer: "j'ai marché"},
+            {present: "tu écoutes", answer: "tu as écouté"},
+            {present: "elle travaille", answer: "elle a travaillé"},
+            {present: "nous visitons", answer: "nous avons visité"},
+            {present: "vous préparez", answer: "vous avez préparé"},
+            {present: "ils étudient", answer: "ils ont étudié"},
+            {present: "je ferme", answer: "j'ai fermé"},
+            {present: "tu achètes", answer: "tu as acheté"},
+            {present: "elle range", answer: "elle a rangé"}
+        ];
+
+        const impExercises = [
+            {present: "je parle", answer: "je parlais"},
+            {present: "tu manges", answer: "tu mangeais"},
+            {present: "il joue", answer: "il jouait"},
+            {present: "nous regardons", answer: "nous regardions"},
+            {present: "vous écoutez", answer: "vous écoutiez"},
+            {present: "elles dansent", answer: "elles dansaient"},
+            {present: "je marche", answer: "je marchais"},
+            {present: "tu chantes", answer: "tu chantais"},
+            {present: "elle travaille", answer: "elle travaillait"},
+            {present: "nous habitons", answer: "nous habitions"},
+            {present: "vous visitez", answer: "vous visitiez"},
+            {present: "ils préparent", answer: "ils préparaient"},
+            {present: "je range", answer: "je rangeais"},
+            {present: "tu nages", answer: "tu nageais"},
+            {present: "elle rêve", answer: "elle rêvait"}
+        ];
+
+        const textAnswers = [
+            "a voyagé", "mangeait", "marchait", "regardait", "rencontrait", 
+            "parlaient", "a découvert", "a préparé", "écoutait", "a décidé", 
+            "téléphonait", "est rentré", "étudiait", "a acheté", "rêvait"
+        ];
+
+        const sentenceExercises = [
+            {
+                parts: ["Hier", ", Marie", " (danser) ", "dans sa chambre."],
+                verb: "danser",
+                answer: "Hier, Marie a dansé dans sa chambre.",
+                correctVerb: "a dansé"
+            },
+            {
+                parts: ["Chaque soir", ", nous", " (regarder) ", "la télévision ensemble."],
+                verb: "regarder", 
+                answer: "Chaque soir, nous regardions la télévision ensemble.",
+                correctVerb: "regardions"
+            },
+            {
+                parts: ["Soudain", ", il", " (commencer) ", "à neiger très fort."],
+                verb: "commencer",
+                answer: "Soudain, il a commencé à neiger très fort.",
+                correctVerb: "a commencé"
+            },
+            {
+                parts: ["Tous les matins", ", elle", " (préparer) ", "le petit-déjeuner."],
+                verb: "préparer",
+                answer: "Tous les matins, elle préparait le petit-déjeuner.",
+                correctVerb: "préparait"
+            },
+            {
+                parts: ["Un jour", ", Pierre", " (rencontrer) ", "son ancien professeur."],
+                verb: "rencontrer",
+                answer: "Un jour, Pierre a rencontré son ancien professeur.",
+                correctVerb: "a rencontré"
+            },
+            {
+                parts: ["Pendant que", " nous", " (manger) ", ", le téléphone a sonné."],
+                verb: "manger",
+                answer: "Pendant que nous mangions, le téléphone a sonné.",
+                correctVerb: "mangions"
+            },
+            {
+                parts: ["Autrefois", ", les enfants", " (jouer) ", "dehors tous les jours."],
+                verb: "jouer",
+                answer: "Autrefois, les enfants jouaient dehors tous les jours.",
+                correctVerb: "jouaient"
+            },
+            {
+                parts: ["Finalement", ", ils", " (décider) ", "de partir en vacances."],
+                verb: "décider",
+                answer: "Finalement, ils ont décidé de partir en vacances.",
+                correctVerb: "ont décidé"
+            },
+            {
+                parts: ["Souvent", ", ma grand-mère", " (raconter) ", "des histoires fascinantes."],
+                verb: "raconter",
+                answer: "Souvent, ma grand-mère racontait des histoires fascinantes.",
+                correctVerb: "racontait"
+            },
+            {
+                parts: ["Ce matin", ", j'", " (oublier) ", "mes clés à la maison."],
+                verb: "oublier",
+                answer: "Ce matin, j'ai oublié mes clés à la maison.",
+                correctVerb: "ai oublié"
+            },
+            {
+                parts: ["Toujours", ", nous", " (arriver) ", "en retard à l'école."],
+                verb: "arriver",
+                answer: "Toujours, nous arrivions en retard à l'école.",
+                correctVerb: "arrivions"
+            },
+            {
+                parts: ["Hier soir", ", elle", " (téléphoner) ", "à sa meilleure amie."],
+                verb: "téléphoner",
+                answer: "Hier soir, elle a téléphoné à sa meilleure amie.",
+                correctVerb: "a téléphoné"
+            },
+            {
+                parts: ["Chaque été", ", nous", " (voyager) ", "en Espagne."],
+                verb: "voyager",
+                answer: "Chaque été, nous voyagions en Espagne.",
+                correctVerb: "voyagions"
+            },
+            {
+                parts: ["Tout à coup", ", le chien", " (aboyer) ", "très fort."],
+                verb: "aboyer",
+                answer: "Tout à coup, le chien a aboyé très fort.",
+                correctVerb: "a aboyé"
+            },
+            {
+                parts: ["D'habitude", ", vous", " (étudier) ", "le français ensemble."],
+                verb: "étudier",
+                answer: "D'habitude, vous étudiiez le français ensemble.",
+                correctVerb: "étudiiez"
+            }
+        ];
+
+        let scores = {pc: 0, imp: 0, text: 0, sentence: 0};
+
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function initializeExercises() {
+            generatePCGrid();
+            generateIMPGrid();
+            generateSentenceExercises();
+        }
+
+        function generatePCGrid() {
+            const grid = document.getElementById('pc-grid');
+            grid.innerHTML = '';
+            
+            pcExercises.forEach((exercise, index) => {
+                const item = document.createElement('div');
+                item.className = 'exercise-item';
+                item.innerHTML = `
+                    <div class="exercise-number">${index + 1}</div>
+                    <div class="present-form">${exercise.present}</div>
+                    <input type="text" class="input-field" id="pc-${index}" placeholder="Passé Composé">
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        function generateIMPGrid() {
+            const grid = document.getElementById('imp-grid');
+            grid.innerHTML = '';
+            
+            impExercises.forEach((exercise, index) => {
+                const item = document.createElement('div');
+                item.className = 'exercise-item';
+                item.innerHTML = `
+                    <div class="exercise-number">${index + 1}</div>
+                    <div class="present-form">${exercise.present}</div>
+                    <input type="text" class="input-field" id="imp-${index}" placeholder="Imparfait">
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        function generateSentenceExercises() {
+            const container = document.getElementById('sentence-exercises');
+            container.innerHTML = '';
+            
+            sentenceExercises.forEach((exercise, index) => {
+                const item = document.createElement('div');
+                item.className = 'sentence-builder';
+                item.innerHTML = `
+                    <div style="margin-bottom: 15px;">
+                        <strong>Aufgabe ${index + 1}:</strong>
+                        <div class="sentence-parts">
+                            ${exercise.parts.map(part => 
+                                part.includes('(') ? 
+                                    `<input type="text" class="verb-input" id="sentence-${index}" placeholder="${exercise.verb}">` : 
+                                    `<span class="sentence-part">${part}</span>`
+                            ).join('')}
+                        </div>
+                        <div class="verb-base">Verb: ${exercise.verb} (in der richtigen Zeit einsetzen)</div>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function checkPCExercise() {
+            let correct = 0;
+            
+            pcExercises.forEach((exercise, index) => {
+                const input = document.getElementById(`pc-${index}`);
+                const userAnswer = input.value.trim().toLowerCase().replace(/['']/g, "'");
+                const correctAnswer = exercise.answer.toLowerCase().replace(/['']/g, "'");
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+            
+            scores.pc = correct;
+            const percentage = Math.round((correct / 15) * 100);
+            document.getElementById('progress-pc').style.width = percentage + '%';
+            
+            const feedback = document.getElementById('pc-feedback');
+            if (percentage >= 80) {
+                feedback.innerHTML = `<div class="feedback correct">🎉 Ausgezeichnet! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else if (percentage >= 60) {
+                feedback.innerHTML = `<div class="feedback correct">👍 Gut gemacht! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">💪 Weiter üben! ${correct}/15 richtig (${percentage}%)</div>`;
+            }
+            
+            updateTotalScore();
+        }
+
+        function checkIMPExercise() {
+            let correct = 0;
+            
+            impExercises.forEach((exercise, index) => {
+                const input = document.getElementById(`imp-${index}`);
+                const userAnswer = input.value.trim().toLowerCase().replace(/['']/g, "'");
+                const correctAnswer = exercise.answer.toLowerCase().replace(/['']/g, "'");
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+            
+            scores.imp = correct;
+            const percentage = Math.round((correct / 15) * 100);
+            document.getElementById('progress-imp').style.width = percentage + '%';
+            
+            const feedback = document.getElementById('imp-feedback');
+            if (percentage >= 80) {
+                feedback.innerHTML = `<div class="feedback correct">🎉 Fantastisch! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else if (percentage >= 60) {
+                feedback.innerHTML = `<div class="feedback correct">👍 Sehr gut! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">💪 Noch etwas üben! ${correct}/15 richtig (${percentage}%)</div>`;
+            }
+            
+            updateTotalScore();
+        }
+
+        function checkTextExercise() {
+            let correct = 0;
+            
+            textAnswers.forEach((answer, index) => {
+                const input = document.getElementById(`text${index + 1}`);
+                const userAnswer = input.value.trim().toLowerCase().replace(/['']/g, "'");
+                const correctAnswer = answer.toLowerCase().replace(/['']/g, "'");
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+            
+            scores.text = correct;
+            const percentage = Math.round((correct / 15) * 100);
+            document.getElementById('progress-text').style.width = percentage + '%';
+            
+            const feedback = document.getElementById('text-feedback');
+            if (percentage >= 80) {
+                feedback.innerHTML = `<div class="feedback correct">🎉 Perfekt! ${correct}/15 richtig (${percentage}%) - Sie verstehen die Signalwörter!</div>`;
+            } else if (percentage >= 60) {
+                feedback.innerHTML = `<div class="feedback correct">👍 Gute Arbeit! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">💪 Schauen Sie sich die Signalwörter nochmal an! ${correct}/15 richtig (${percentage}%)</div>`;
+            }
+            
+            updateTotalScore();
+        }
+
+        function checkSentenceExercise() {
+            let correct = 0;
+            
+            sentenceExercises.forEach((exercise, index) => {
+                const input = document.getElementById(`sentence-${index}`);
+                const userAnswer = input.value.trim().toLowerCase().replace(/['']/g, "'");
+                const correctAnswer = exercise.correctVerb.toLowerCase().replace(/['']/g, "'");
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+            
+            scores.sentence = correct;
+            const percentage = Math.round((correct / 15) * 100);
+            document.getElementById('progress-sentence').style.width = percentage + '%';
+            
+            const feedback = document.getElementById('sentence-feedback');
+            if (percentage >= 80) {
+                feedback.innerHTML = `<div class="feedback correct">🎉 Hervorragend! ${correct}/15 richtig (${percentage}%) - Perfekte Satzbildung!</div>`;
+            } else if (percentage >= 60) {
+                feedback.innerHTML = `<div class="feedback correct">👍 Gut! ${correct}/15 richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">💪 Üben Sie weiter! ${correct}/15 richtig (${percentage}%)</div>`;
+            }
+            
+            updateTotalScore();
+        }
+
+        function updateTotalScore() {
+            const totalPoints = scores.pc + scores.imp + scores.text + scores.sentence;
+            const maxPoints = 60;
+            const percentage = Math.round((totalPoints / maxPoints) * 100);
+            
+            // Notenberechnung: (Erreichte Punkte ÷ Gesamtpunkte) × 5 + 1
+            const grade = ((totalPoints / maxPoints) * 5 + 1).toFixed(1);
+            
+            const totalScoreDiv = document.getElementById('total-score');
+            const totalResult = document.getElementById('total-result');
+            
+            if (totalPoints > 0) {
+                totalScoreDiv.style.display = 'block';
+                
+                let gradeComment = '';
+                if (grade >= 5.5) gradeComment = '🌟 Ausgezeichnet!';
+                else if (grade >= 5.0) gradeComment = '🎉 Sehr gut!';
+                else if (grade >= 4.5) gradeComment = '👍 Gut!';
+                else if (grade >= 4.0) gradeComment = '📚 Genügend';
+                else gradeComment = '💪 Weiter üben!';
+                
+                totalResult.innerHTML = `
+                    <p><strong>Gesamtpunkte:</strong> ${totalPoints}/60 (${percentage}%)</p>
+                    <p><strong>Note:</strong> ${grade}/6.0</p>
+                    <p style="font-size: 1.5rem; margin-top: 15px;">${gradeComment}</p>
+                    <div style="margin-top: 20px; font-size: 1rem;">
+                        <p>📊 <strong>Detailergebnis:</strong></p>
+                        <p>Übung 1 (Passé Composé): ${scores.pc}/15</p>
+                        <p>Übung 2 (Imparfait): ${scores.imp}/15</p>
+                        <p>Übung 3 (Text): ${scores.text}/15</p>
+                        <p>Übung 4 (Satzteile): ${scores.sentence}/15</p>
+                    </div>
+                `;
+            }
+        }
+
+        function resetPCExercise() {
+            pcExercises.forEach((_, index) => {
+                const input = document.getElementById(`pc-${index}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            document.getElementById('pc-feedback').innerHTML = '';
+            document.getElementById('progress-pc').style.width = '0%';
+            scores.pc = 0;
+            updateTotalScore();
+        }
+
+        function resetIMPExercise() {
+            impExercises.forEach((_, index) => {
+                const input = document.getElementById(`imp-${index}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            document.getElementById('imp-feedback').innerHTML = '';
+            document.getElementById('progress-imp').style.width = '0%';
+            scores.imp = 0;
+            updateTotalScore();
+        }
+
+        function resetTextExercise() {
+            for (let i = 1; i <= 15; i++) {
+                const input = document.getElementById(`text${i}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            }
+            document.getElementById('text-feedback').innerHTML = '';
+            document.getElementById('progress-text').style.width = '0%';
+            scores.text = 0;
+            updateTotalScore();
+        }
+
+        function resetSentenceExercise() {
+            sentenceExercises.forEach((_, index) => {
+                const input = document.getElementById(`sentence-${index}`);
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+            document.getElementById('sentence-feedback').innerHTML = '';
+            document.getElementById('progress-sentence').style.width = '0%';
+            scores.sentence = 0;
+            updateTotalScore();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeExercises();
+        });
+    </script>
+</body>
+</html>
