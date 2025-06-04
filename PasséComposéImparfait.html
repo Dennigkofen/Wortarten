@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Französisch: Passé Composé & Imparfait</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .animated-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.1)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient></defs><circle cx="200" cy="200" r="100" fill="url(%23a)"><animateTransform attributeName="transform" type="translate" values="0,0;800,600;0,0" dur="20s" repeatCount="indefinite"/></circle><circle cx="800" cy="800" r="150" fill="url(%23a)"><animateTransform attributeName="transform" type="translate" values="0,0;-600,-400;0,0" dur="25s" repeatCount="indefinite"/></circle></svg>');
+            animation: float 30s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .tabs {
+            display: flex;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tab {
+            flex: 1;
+            padding: 20px 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tab:hover::before {
+            left: 100%;
+        }
+
+        .tab.active {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-weight: 600;
+            transform: translateY(-2px);
+        }
+
+        .tab:hover {
+            background: rgba(255,255,255,0.15);
+            color: white;
+        }
+
+        .content {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 0 0 20px 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            min-height: 700px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-top: none;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f2ff 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.15);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .verb-conjugation {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .conjugation-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e3f2fd;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .conjugation-card:hover {
+            border-color: #667eea;
+            transform: scale(1.02);
+        }
+
+        .french {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .german {
+            color: #666;
+            font-style: italic;
+        }
+
+        .signal-words-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .signal-word-card {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #ff9800;
+            transition: all 0.3s ease;
+            margin: 15px 0;
+        }
+
+        .signal-word-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+        }
+
+        .exercise-container {
+            background: linear-gradient(135deg, #f1f8e9 0%, #e8f5e8 100%);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #4caf50;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.1);
+        }
+
+        .exercise-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            color: #2e7d32;
+            font-weight: 600;
+            font-size: 1.3rem;
+        }
+
+        .quiz-question {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .quiz-options {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .quiz-option {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .quiz-option.correct {
+            background: #4caf50;
+        }
+
+        .quiz-option.incorrect {
+            background: #f44336;
+        }
+
+        .sentence-input {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .input-field {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .check-btn {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .check-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #ff9800 0%, #f57400 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-left: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+        }
+
+        .feedback {
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .feedback.correct {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            color: #155724;
+            border: 2px solid #4caf50;
+        }
+
+        .feedback.incorrect {
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+            color: #721c24;
+            border: 2px solid #f44336;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #4caf50, #45a049);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .score-display {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .signal-words-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .quiz-options {
+                flex-direction: column;
+            }
+            
+            .sentence-input {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #e65100;
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🇫🇷 Französisch Interaktiv</h1>
+            <p>Meistere Passé Composé & Imparfait mit modernsten Lernmethoden</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('passe-compose')">
+                <span class="icon">⚡</span> Passé Composé
+            </button>
+            <button class="tab" onclick="showSection('imparfait')">
+                <span class="icon">🔄</span> Imparfait
+            </button>
+            <button class="tab" onclick="showSection('signalwoerter')">
+                <span class="icon">🎯</span> Signalwörter
+            </button>
+            <button class="tab" onclick="showSection('satzbuilder')">
+                <span class="icon">✏️</span> Übungen
+            </button>
+        </div>
+
+        <div class="content">
+            <!-- Passé Composé Section -->
+            <div id="passe-compose" class="section active">
+                <h2><span class="icon">⚡</span>Passé Composé mit -er Verben</h2>
+                
+                <div class="card">
+                    <h3>🔧 Bildungsregel</h3>
+                    <p style="font-size: 1.2rem; margin-bottom: 15px;">
+                        <span class="highlight">avoir</span> + Partizip Perfekt (<span class="highlight">-é</span>)
+                    </p>
+                    <p style="color: #667eea; font-weight: 600; font-size: 1.1rem;">
+                        Beispiel: parler → j'ai parlé
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Konjugation: "parler" (sprechen)</h3>
+                    <div class="verb-conjugation">
+                        <div class="conjugation-card">
+                            <div class="french">j'ai parlé</div>
+                            <div class="german">ich habe gesprochen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">tu as parlé</div>
+                            <div class="german">du hast gesprochen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">il/elle a parlé</div>
+                            <div class="german">er/sie hat gesprochen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">nous avons parlé</div>
+                            <div class="german">wir haben gesprochen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">vous avez parlé</div>
+                            <div class="german">ihr habt gesprochen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">ils/elles ont parlé</div>
+                            <div class="german">sie haben gesprochen</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">🎯</span> Quiz: Passé Composé
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-pc"></div>
+                    </div>
+                    <div id="quiz-pc-container"></div>
+                    <div class="score-display" id="score-pc" style="display: none;"></div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">📝</span> Übung: Sätze ins Passé Composé setzen
+                    </div>
+                    <p style="margin-bottom: 20px; color: #666;">Setzen Sie die folgenden Sätze ins Passé Composé (wie in Teil 1 der Lernkontrolle):</p>
+                    
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Je regarde la télévision.</strong></p>
+                            <input type="text" class="input-field" id="pc-ex1" placeholder="Schreiben Sie den ganzen Satz im Passé Composé">
+                        </div>
+                        <button class="check-btn" onclick="checkPCExercise(1, 'J\'ai regardé la télévision.')">Prüfen</button>
+                    </div>
+                    <div id="pc-feedback1"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Tu parles avec ton ami.</strong></p>
+                            <input type="text" class="input-field" id="pc-ex2" placeholder="Schreiben Sie den ganzen Satz im Passé Composé">
+                        </div>
+                        <button class="check-btn" onclick="checkPCExercise(2, 'Tu as parlé avec ton ami.')">Prüfen</button>
+                    </div>
+                    <div id="pc-feedback2"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Elle écoute de la musique.</strong></p>
+                            <input type="text" class="input-field" id="pc-ex3" placeholder="Schreiben Sie den ganzen Satz im Passé Composé">
+                        </div>
+                        <button class="check-btn" onclick="checkPCExercise(3, 'Elle a écouté de la musique.')">Prüfen</button>
+                    </div>
+                    <div id="pc-feedback3"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Nous visitons le musée.</strong></p>
+                            <input type="text" class="input-field" id="pc-ex4" placeholder="Schreiben Sie den ganzen Satz im Passé Composé">
+                        </div>
+                        <button class="check-btn" onclick="checkPCExercise(4, 'Nous avons visité le musée.')">Prüfen</button>
+                    </div>
+                    <div id="pc-feedback4"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Ils jouent au football.</strong></p>
+                            <input type="text" class="input-field" id="pc-ex5" placeholder="Schreiben Sie den ganzen Satz im Passé Composé">
+                        </div>
+                        <button class="check-btn" onclick="checkPCExercise(5, 'Ils ont joué au football.')">Prüfen</button>
+                    </div>
+                    <div id="pc-feedback5"></div>
+
+                    <button class="reset-btn" onclick="resetPCExercises()">Alle zurücksetzen</button>
+                </div>
+            </div>
+
+            <!-- Imparfait Section -->
+            <div id="imparfait" class="section">
+                <h2><span class="icon">🔄</span>Imparfait (regelmäßige Verben)</h2>
+                
+                <div class="card">
+                    <h3>🔧 Bildungsregel</h3>
+                    <div style="font-size: 1.1rem; line-height: 1.8;">
+                        <p><strong>Schritt 1:</strong> Stamm der <span class="highlight">1. Person Plural</span> (nous-Form ohne -ons)</p>
+                        <p><strong>Schritt 2:</strong> + Imparfait-Endungen: <span class="highlight">-ais, -ais, -ait, -ions, -iez, -aient</span></p>
+                        <p style="color: #667eea; font-weight: 600; margin-top: 15px;">
+                            Beispiel: parler → nous parlons → je parlais
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📝 Konjugation: "parler" im Imparfait</h3>
+                    <div class="verb-conjugation">
+                        <div class="conjugation-card">
+                            <div class="french">je parlais</div>
+                            <div class="german">ich sprach</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">tu parlais</div>
+                            <div class="german">du sprachst</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">il/elle parlait</div>
+                            <div class="german">er/sie sprach</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">nous parlions</div>
+                            <div class="german">wir sprachen</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">vous parliez</div>
+                            <div class="german">ihr spracht</div>
+                        </div>
+                        <div class="conjugation-card">
+                            <div class="french">ils/elles parlaient</div>
+                            <div class="german">sie sprachen</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">🎯</span> Quiz: Imparfait
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-imp"></div>
+                    </div>
+                    <div id="quiz-imp-container"></div>
+                    <div class="score-display" id="score-imp" style="display: none;"></div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">📝</span> Übung: Sätze ins Imparfait setzen
+                    </div>
+                    <p style="margin-bottom: 20px; color: #666;">Setzen Sie die folgenden Sätze ins Imparfait (wie in Teil 2 der Lernkontrolle):</p>
+                    
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Je joue souvent au tennis.</strong></p>
+                            <input type="text" class="input-field" id="imp-ex1" placeholder="Schreiben Sie den ganzen Satz im Imparfait">
+                        </div>
+                        <button class="check-btn" onclick="checkIMPExercise(1, 'Je jouais souvent au tennis.')">Prüfen</button>
+                    </div>
+                    <div id="imp-feedback1"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Tu habites à Paris.</strong></p>
+                            <input type="text" class="input-field" id="imp-ex2" placeholder="Schreiben Sie den ganzen Satz im Imparfait">
+                        </div>
+                        <button class="check-btn" onclick="checkIMPExercise(2, 'Tu habitais à Paris.')">Prüfen</button>
+                    </div>
+                    <div id="imp-feedback2"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Elle téléphone à sa mère chaque dimanche.</strong></p>
+                            <input type="text" class="input-field" id="imp-ex3" placeholder="Schreiben Sie den ganzen Satz im Imparfait">
+                        </div>
+                        <button class="check-btn" onclick="checkIMPExercise(3, 'Elle téléphonait à sa mère chaque dimanche.')">Prüfen</button>
+                    </div>
+                    <div id="imp-feedback3"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Nous regardons toujours ce programme.</strong></p>
+                            <input type="text" class="input-field" id="imp-ex4" placeholder="Schreiben Sie den ganzen Satz im Imparfait">
+                        </div>
+                        <button class="check-btn" onclick="checkIMPExercise(4, 'Nous regardions toujours ce programme.')">Prüfen</button>
+                    </div>
+                    <div id="imp-feedback4"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Ils nagent dans la piscine.</strong></p>
+                            <input type="text" class="input-field" id="imp-ex5" placeholder="Schreiben Sie den ganzen Satz im Imparfait">
+                        </div>
+                        <button class="check-btn" onclick="checkIMPExercise(5, 'Ils nageaient dans la piscine.')">Prüfen</button>
+                    </div>
+                    <div id="imp-feedback5"></div>
+
+                    <button class="reset-btn" onclick="resetIMPExercises()">Alle zurücksetzen</button>
+                </div>
+            </div>
+
+            <!-- Signalwörter Section -->
+            <div id="signalwoerter" class="section">
+                <h2><span class="icon">🎯</span>Signalwörter</h2>
+                
+                <div class="signal-words-grid">
+                    <div class="card">
+                        <h3 style="color: #f44336;">🔴 Passé Composé</h3>
+                        <p style="font-style: italic; margin-bottom: 20px; color: #666;">
+                            Einmalige, abgeschlossene Handlungen
+                        </p>
+                        
+                        <div class="signal-word-card">
+                            <strong>hier</strong> (gestern)<br>
+                            <span style="color: #666;">→ Eine bestimmte Handlung gestern</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>un jour</strong> (eines Tages)<br>
+                            <span style="color: #666;">→ Eine einmalige Begebenheit</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>soudain</strong> (plötzlich)<br>
+                            <span style="color: #666;">→ Plötzliche, unerwartete Handlung</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>d'abord, puis, enfin</strong><br>
+                            <span style="color: #666;">→ Aufeinanderfolgende Handlungen</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <h3 style="color: #2196f3;">🔵 Imparfait</h3>
+                        <p style="font-style: italic; margin-bottom: 20px; color: #666;">
+                            Gewohnheiten, Zustände, Beschreibungen
+                        </p>
+                        
+                        <div class="signal-word-card">
+                            <strong>toujours</strong> (immer)<br>
+                            <span style="color: #666;">→ Gewohnheit</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>souvent</strong> (oft)<br>
+                            <span style="color: #666;">→ Wiederholte Handlung</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>chaque jour/matin</strong> (jeden Tag/Morgen)<br>
+                            <span style="color: #666;">→ Regelmäßige Gewohnheit</span>
+                        </div>
+                        
+                        <div class="signal-word-card">
+                            <strong>pendant que</strong> (während)<br>
+                            <span style="color: #666;">→ Gleichzeitige Handlungen</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">🎯</span> Quiz: Signalwörter erkennen
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" id="progress-signal"></div>
+                    </div>
+                    <div id="quiz-signal-container"></div>
+                    <div class="score-display" id="score-signal" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Satzbuilder Section -->
+            <div id="satzbuilder" class="section">
+                <h2><span class="icon">✏️</span>Schreibübungen</h2>
+                
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">📝</span> Text vervollständigen (Teil 3 der Lernkontrolle)
+                    </div>
+                    <p style="font-size: 1.1rem; margin-bottom: 25px; color: #666;">
+                        Vervollständigen Sie den Text mit den Verben in der richtigen Zeit. Achten Sie auf die <strong>Signalwörter</strong>!
+                    </p>
+                    
+                    <div style="background: #f8f9fa; padding: 25px; border-radius: 12px; margin: 20px 0; line-height: 2;">
+                        <h4 style="color: #667eea; margin-bottom: 20px;">Les vacances de Sophie</h4>
+                        
+                        <p><strong>L'été dernier</strong>, Sophie <input type="text" class="input-field" id="text-ex1" placeholder="passer" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> ses vacances chez sa grand-mère.</p>
+                        
+                        <p><strong>Chaque matin</strong>, elle <input type="text" class="input-field" id="text-ex2" placeholder="jouer" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> dans le jardin parce que les oiseaux <input type="text" class="input-field" id="text-ex3" placeholder="chanter" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> dans les arbres.</p>
+                        
+                        <p><strong>Tous les jours</strong>, grand-mère et Sophie <input type="text" class="input-field" id="text-ex4" placeholder="marcher" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> dans le village.</p>
+                        
+                        <p><strong>Toujours</strong>, grand-mère <input type="text" class="input-field" id="text-ex5" placeholder="raconter" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> des histoires fascinantes.</p>
+                        
+                        <p><strong>Un jour</strong>, <strong>soudain</strong>, il <input type="text" class="input-field" id="text-ex6" placeholder="commencer" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> à pleuvoir très fort.</p>
+                        
+                        <p>Les deux femmes <input type="text" class="input-field" id="text-ex7" placeholder="rentrer" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> dans la maison.</p>
+                        
+                        <p><strong>Pendant ce temps</strong>, grand-mère <input type="text" class="input-field" id="text-ex8" placeholder="préparer" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> du thé chaud, Sophie <input type="text" class="input-field" id="text-ex9" placeholder="regarder" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> la pluie par la fenêtre.</p>
+                        
+                        <p><strong>Après</strong>, le soleil <input type="text" class="input-field" id="text-ex10" placeholder="briller" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> de nouveau et Sophie <input type="text" class="input-field" id="text-ex11" placeholder="décider" style="width: 120px; display: inline; margin: 0 5px; padding: 5px 10px; font-size: 1rem;"> de chercher des fleurs.</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 25px 0;">
+                        <button class="check-btn" onclick="checkTextExercise()">Ganzen Text prüfen</button>
+                        <button class="reset-btn" onclick="resetTextExercise()">Text zurücksetzen</button>
+                    </div>
+                    <div id="text-feedback"></div>
+                </div>
+
+                <div class="exercise-container">
+                    <div class="exercise-header">
+                        <span class="icon">✏️</span> Freie Schreibübung
+                    </div>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px; color: #666;">
+                        Schreiben Sie die Sätze mit dem richtigen Verb in der passenden Zeit:
+                    </p>
+                    
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Hier</strong>, je _______ (manger) une pizza délicieuse.</p>
+                            <input type="text" class="input-field" id="sentence1" placeholder="Setzen Sie 'manger' in die richtige Zeit">
+                        </div>
+                        <button class="check-btn" onclick="checkSentence(1, 'ai mangé')">Prüfen</button>
+                    </div>
+                    <div id="feedback1"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Chaque matin</strong>, elle _______ (regarder) la télévision.</p>
+                            <input type="text" class="input-field" id="sentence2" placeholder="Setzen Sie 'regarder' in die richtige Zeit">
+                        </div>
+                        <button class="check-btn" onclick="checkSentence(2, 'regardait')">Prüfen</button>
+                    </div>
+                    <div id="feedback2"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Soudain</strong>, il _______ (commencer) à pleuvoir.</p>
+                            <input type="text" class="input-field" id="sentence3" placeholder="Setzen Sie 'commencer' in die richtige Zeit">
+                        </div>
+                        <button class="check-btn" onclick="checkSentence(3, 'a commencé')">Prüfen</button>
+                    </div>
+                    <div id="feedback3"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Tous les jours</strong>, nous _______ (marcher) dans le parc.</p>
+                            <input type="text" class="input-field" id="sentence4" placeholder="Setzen Sie 'marcher' in die richtige Zeit">
+                        </div>
+                        <button class="check-btn" onclick="checkSentence(4, 'marchions')">Prüfen</button>
+                    </div>
+                    <div id="feedback4"></div>
+
+                    <div class="sentence-input">
+                        <div>
+                            <p><strong>Un jour</strong>, Marie _______ (décider) de voyager en France.</p>
+                            <input type="text" class="input-field" id="sentence5" placeholder="Setzen Sie 'décider' in die richtige Zeit">
+                        </div>
+                        <button class="check-btn" onclick="checkSentence(5, 'a décidé')">Prüfen</button>
+                    </div>
+                    <div id="feedback5"></div>
+
+                    <button class="reset-btn" onclick="resetAllSentences()">Alle zurücksetzen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = {
+            'pc': [
+                {
+                    question: "Wie lautet 'je mange' im Passé Composé?",
+                    options: ["j'ai mangé", "je mange", "je mangeais", "je mangerais"],
+                    correct: 0
+                },
+                {
+                    question: "Wie lautet 'vous parlez' im Passé Composé?",
+                    options: ["vous parlez", "vous avez parlé", "vous parliez", "vous parlerez"],
+                    correct: 1
+                },
+                {
+                    question: "Wie lautet 'ils jouent' im Passé Composé?",
+                    options: ["ils jouaient", "ils joueront", "ils ont joué", "ils jouent"],
+                    correct: 2
+                },
+                {
+                    question: "Wie lautet 'elle écoute' im Passé Composé?",
+                    options: ["elle a écouté", "elle écoutait", "elle écoute", "elle écoutera"],
+                    correct: 0
+                },
+                {
+                    question: "Wie lautet 'nous regardons' im Passé Composé?",
+                    options: ["nous regardions", "nous avons regardé", "nous regardons", "nous regarderons"],
+                    correct: 1
+                }
+            ],
+            'imp': [
+                {
+                    question: "Wie lautet 'je parle' im Imparfait?",
+                    options: ["je parlais", "j'ai parlé", "je parle", "je parlerai"],
+                    correct: 0
+                },
+                {
+                    question: "Wie lautet 'tu manges' im Imparfait?",
+                    options: ["tu as mangé", "tu mangeais", "tu manges", "tu mangeras"],
+                    correct: 1
+                },
+                {
+                    question: "Wie lautet 'elle joue' im Imparfait?",
+                    options: ["elle a joué", "elle joue", "elle jouait", "elle jouera"],
+                    correct: 2
+                },
+                {
+                    question: "Wie lautet 'nous écoutons' im Imparfait?",
+                    options: ["nous écoutions", "nous avons écouté", "nous écoutons", "nous écouterons"],
+                    correct: 0
+                },
+                {
+                    question: "Wie lautet 'ils regardent' im Imparfait?",
+                    options: ["ils ont regardé", "ils regardaient", "ils regardent", "ils regarderont"],
+                    correct: 1
+                }
+            ],
+            'signal': [
+                {
+                    question: "Welches Signalwort zeigt das Passé Composé an?",
+                    options: ["toujours", "hier", "souvent", "chaque jour"],
+                    correct: 1
+                },
+                {
+                    question: "Welches Signalwort zeigt das Imparfait an?",
+                    options: ["soudain", "un jour", "pendant que", "hier"],
+                    correct: 2
+                },
+                {
+                    question: "'Tous les matins' zeigt welche Zeit an?",
+                    options: ["Passé Composé", "Imparfait", "Présent", "Futur"],
+                    correct: 1
+                },
+                {
+                    question: "'D'abord' zeigt welche Zeit an?",
+                    options: ["Imparfait", "Passé Composé", "Présent", "Futur"],
+                    correct: 1
+                },
+                {
+                    question: "Welches Wort zeigt eine Gewohnheit an?",
+                    options: ["soudain", "hier", "autrefois", "un jour"],
+                    correct: 2
+                }
+            ]
+        };
+
+        let currentQuiz = '';
+        let currentQuestion = 0;
+        let score = 0;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.closest('.tab').classList.add('active');
+
+            // Initialize quiz if needed
+            if (sectionId === 'passe-compose') {
+                initQuiz('pc');
+            } else if (sectionId === 'imparfait') {
+                initQuiz('imp');
+            } else if (sectionId === 'signalwoerter') {
+                initQuiz('signal');
+            }
+        }
+
+        function initQuiz(quizType) {
+            currentQuiz = quizType;
+            currentQuestion = 0;
+            score = 0;
+            
+            const container = document.getElementById(`quiz-${quizType}-container`);
+            const progressBar = document.getElementById(`progress-${quizType}`);
+            const scoreDisplay = document.getElementById(`score-${quizType}`);
+            
+            container.innerHTML = '';
+            progressBar.style.width = '0%';
+            scoreDisplay.style.display = 'none';
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const quiz = quizData[currentQuiz];
+            const container = document.getElementById(`quiz-${currentQuiz}-container`);
+            const progressBar = document.getElementById(`progress-${currentQuiz}`);
+            
+            if (currentQuestion >= quiz.length) {
+                showQuizResult();
+                return;
+            }
+
+            const question = quiz[currentQuestion];
+            const progress = ((currentQuestion + 1) / quiz.length) * 100;
+            progressBar.style.width = progress + '%';
+
+            container.innerHTML = `
+                <div class="quiz-question">
+                    <h4>Frage ${currentQuestion + 1} von ${quiz.length}</h4>
+                    <p style="font-size: 1.2rem; margin: 15px 0;">${question.question}</p>
+                    <div class="quiz-options">
+                        ${question.options.map((option, index) => 
+                            `<button class="quiz-option" onclick="selectAnswer(${index})">${option}</button>`
+                        ).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(selectedIndex) {
+            const quiz = quizData[currentQuiz];
+            const question = quiz[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((option, index) => {
+                option.disabled = true;
+                if (index === question.correct) {
+                    option.classList.add('correct');
+                } else if (index === selectedIndex && index !== question.correct) {
+                    option.classList.add('incorrect');
+                }
+            });
+
+            if (selectedIndex === question.correct) {
+                score++;
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                showQuestion();
+            }, 1500);
+        }
+
+        function showQuizResult() {
+            const container = document.getElementById(`quiz-${currentQuiz}-container`);
+            const scoreDisplay = document.getElementById(`score-${currentQuiz}`);
+            const progressBar = document.getElementById(`progress-${currentQuiz}`);
+            
+            progressBar.style.width = '100%';
+            
+            const percentage = Math.round((score / quizData[currentQuiz].length) * 100);
+            let message = '';
+            
+            if (percentage >= 80) {
+                message = '🎉 Ausgezeichnet!';
+            } else if (percentage >= 60) {
+                message = '👍 Gut gemacht!';
+            } else {
+                message = '💪 Weiter üben!';
+            }
+
+            container.innerHTML = `
+                <div style="text-align: center; padding: 30px;">
+                    <h3 style="color: #4caf50; margin-bottom: 20px;">${message}</h3>
+                    <p style="font-size: 1.3rem;">Du hast <strong>${score} von ${quizData[currentQuiz].length}</strong> Fragen richtig beantwortet!</p>
+                    <button class="check-btn" onclick="initQuiz('${currentQuiz}')" style="margin-top: 20px;">
+                        Nochmal versuchen
+                    </button>
+                </div>
+            `;
+
+            scoreDisplay.innerHTML = `${percentage}% richtig - ${message}`;
+            scoreDisplay.style.display = 'block';
+        }
+
+        function checkSentence(num, correctAnswer) {
+            const input = document.getElementById(`sentence${num}`);
+            const feedback = document.getElementById(`feedback${num}`);
+            const userAnswer = input.value.trim().toLowerCase();
+            const correct = correctAnswer.toLowerCase();
+
+            if (userAnswer === correct) {
+                feedback.innerHTML = '<div class="feedback correct">✅ Perfekt! Das ist richtig!</div>';
+                input.style.borderColor = '#4caf50';
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Nicht ganz richtig. Die richtige Antwort ist: <strong>${correctAnswer}</strong></div>`;
+                input.style.borderColor = '#f44336';
+            }
+        }
+
+        function checkPCExercise(num, correctAnswer) {
+            const input = document.getElementById(`pc-ex${num}`);
+            const feedback = document.getElementById(`pc-feedback${num}`);
+            const userAnswer = input.value.trim();
+            
+            // Normalize answers for comparison
+            const normalizeAnswer = (str) => str.toLowerCase().replace(/['']/g, "'").trim();
+            
+            if (normalizeAnswer(userAnswer) === normalizeAnswer(correctAnswer)) {
+                feedback.innerHTML = '<div class="feedback correct">✅ Ausgezeichnet! Perfekt ins Passé Composé gesetzt!</div>';
+                input.style.borderColor = '#4caf50';
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Nicht ganz richtig. Die richtige Antwort ist: <strong>${correctAnswer}</strong></div>`;
+                input.style.borderColor = '#f44336';
+            }
+        }
+
+        function checkIMPExercise(num, correctAnswer) {
+            const input = document.getElementById(`imp-ex${num}`);
+            const feedback = document.getElementById(`imp-feedback${num}`);
+            const userAnswer = input.value.trim();
+            
+            const normalizeAnswer = (str) => str.toLowerCase().replace(/['']/g, "'").trim();
+            
+            if (normalizeAnswer(userAnswer) === normalizeAnswer(correctAnswer)) {
+                feedback.innerHTML = '<div class="feedback correct">✅ Fantastisch! Perfekt ins Imparfait gesetzt!</div>';
+                input.style.borderColor = '#4caf50';
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">❌ Nicht ganz richtig. Die richtige Antwort ist: <strong>${correctAnswer}</strong></div>`;
+                input.style.borderColor = '#f44336';
+            }
+        }
+
+        function checkTextExercise() {
+            const correctAnswers = [
+                'a passé', 'jouait', 'chantaient', 'marchaient', 'racontait', 
+                'a commencé', 'ont rentré', 'préparait', 'regardait', 'a brillé', 'a décidé'
+            ];
+            
+            let score = 0;
+            let results = [];
+            
+            for (let i = 1; i <= 11; i++) {
+                const input = document.getElementById(`text-ex${i}`);
+                const userAnswer = input.value.trim().toLowerCase();
+                const correct = correctAnswers[i-1].toLowerCase();
+                
+                if (userAnswer === correct) {
+                    input.style.borderColor = '#4caf50';
+                    input.style.backgroundColor = '#e8f5e8';
+                    score++;
+                    results.push(`✅ ${i}`);
+                } else {
+                    input.style.borderColor = '#f44336';
+                    input.style.backgroundColor = '#ffebee';
+                    results.push(`❌ ${i}: ${correctAnswers[i-1]}`);
+                }
+            }
+            
+            const feedback = document.getElementById('text-feedback');
+            const percentage = Math.round((score / 11) * 100);
+            
+            if (score === 11) {
+                feedback.innerHTML = '<div class="feedback correct">🎉 PERFEKT! Alle 11 Verben richtig! Sie haben Passé Composé und Imparfait gemeistert!</div>';
+            } else if (score >= 8) {
+                feedback.innerHTML = `<div class="feedback correct">👍 Sehr gut! ${score}/11 richtig (${percentage}%)</div>`;
+            } else {
+                feedback.innerHTML = `<div class="feedback incorrect">💪 Weiter üben! ${score}/11 richtig (${percentage}%). Schauen Sie sich die Signalwörter nochmal an!</div>`;
+            }
+        }
+
+        function resetTextExercise() {
+            for (let i = 1; i <= 11; i++) {
+                const input = document.getElementById(`text-ex${i}`);
+                input.value = '';
+                input.style.borderColor = '#e0e0e0';
+                input.style.backgroundColor = 'white';
+            }
+            document.getElementById('text-feedback').innerHTML = '';
+        }
+
+        function resetPCExercises() {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`pc-ex${i}`);
+                const feedback = document.getElementById(`pc-feedback${i}`);
+                
+                input.value = '';
+                input.style.borderColor = '#e0e0e0';
+                feedback.innerHTML = '';
+            }
+        }
+
+        function resetIMPExercises() {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`imp-ex${i}`);
+                const feedback = document.getElementById(`imp-feedback${i}`);
+                
+                input.value = '';
+                input.style.borderColor = '#e0e0e0';
+                feedback.innerHTML = '';
+            }
+        }
+
+        function resetAllSentences() {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`sentence${i}`);
+                const feedback = document.getElementById(`feedback${i}`);
+                
+                input.value = '';
+                input.style.borderColor = '#e0e0e0';
+                feedback.innerHTML = '';
+            }
+        }
+
+        // Initialize first quiz on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initQuiz('pc');
+        });
+
+        // Add Enter key support for sentence inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementById(`sentence${i}`);
+                if (input) {
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            const correctAnswers = ['ai mangé', 'regardait', 'a commencé', 'marchions', 'a décidé'];
+                            checkSentence(i, correctAnswers[i-1]);
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</body>
+</html>
